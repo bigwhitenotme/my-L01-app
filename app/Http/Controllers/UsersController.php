@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-15 13:03:10
- * @LastEditTime: 2020-03-15 20:05:52
+ * @LastEditTime: 2020-03-15 21:21:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\app\Http\Controllers\UsersController.php
@@ -38,6 +38,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        Auth::login($user);
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show', [$user]);
     }
