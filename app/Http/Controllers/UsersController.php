@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-15 13:03:10
- * @LastEditTime: 2020-03-15 16:46:00
+ * @LastEditTime: 2020-03-15 18:54:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\app\Http\Controllers\UsersController.php
@@ -24,5 +24,14 @@ class UsersController extends Controller
     public function show(User $user)
     {
         return view('users.show', compact('user'));
+    }
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|unique:users|max:50',
+            'email' => 'required|email|unique:users|max:255',
+            'password' => 'required|confirmed|min:6'
+        ]);
+        return;
     }
 }
