@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-15 13:03:10
- * @LastEditTime: 2020-03-15 21:50:47
+ * @LastEditTime: 2020-03-15 22:08:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\app\Http\Controllers\UsersController.php
@@ -15,6 +15,15 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
     //
     public function create()
     {
@@ -45,11 +54,13 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'required|confirmed|min:6'
