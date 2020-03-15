@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-15 13:03:10
- * @LastEditTime: 2020-03-15 18:54:02
+ * @LastEditTime: 2020-03-15 20:05:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\app\Http\Controllers\UsersController.php
@@ -32,6 +32,13 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
-        return;
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        return redirect()->route('users.show', [$user]);
     }
 }
