@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-15 13:03:10
- * @LastEditTime: 2020-03-15 23:01:53
+ * @LastEditTime: 2020-03-15 23:16:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\app\Http\Controllers\UsersController.php
@@ -82,5 +82,13 @@ class UsersController extends Controller
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user->id);
+    }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }
