@@ -2,7 +2,7 @@
 /*
  * @Author: your name
  * @Date: 2020-03-14 19:04:47
- * @LastEditTime: 2020-03-15 12:53:37
+ * @LastEditTime: 2020-03-15 13:15:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \Code\my-L01-app\routes\web.php
@@ -13,3 +13,4 @@ Route::get('about','StaticPagesController@about')->name('about');
 //添加测试
 Route::get('/test','StaticPagesController@test');
 //
+Route::get('signup','UsersController@create')->name('signup');
