@@ -10,24 +10,34 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class StaticPagesController extends Controller
 {
     //
-    public function home(){
-        //return '这是主页';
-        return view('static_pages/home');
+    public function home()
+    {
+        $feed_items = [];
+        if (Auth::check()) {
+            $feed_items = Auth::user()->feed()->paginate(30);
+        }
+
+        return view('static_pages/home', compact('feed_items'));
     }
-    public function help(){
+    public function help()
+    {
         //return '这是帮助页面';
         return view('static_pages/help');
     }
-    public function about(){
+    public function about()
+    {
         //return '这是关于页';
         return view('static_pages/about');
     }
-    public function test(){
+    public function test()
+    {
         return '这是测试页';
     }
 }
